@@ -1,0 +1,10 @@
+flask
+flask-dance
+flask_wtf
+sqlalchemy
+mysql
+pymysql
+mysql-connector-python
+tweepy
+gunicorn==19.9.0
+gevent

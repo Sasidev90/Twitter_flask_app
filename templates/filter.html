@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Flask Tweets</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+            .filterspace{
+                padding-top: 3%;
+                padding-bottom: 3%;
+            }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/"><strong>{{ context.username }}</strong></a>
+</nav>
+<div class="jumbotron filterspace text-center">
+    <form action="" method='POST' name="myform">
+        {{ form.csrf_token }}
+        <span>{{ form.startdate.label }} {{ form.startdate(class='datepicker') }}</span>
+        <span style="margin-left:2%">{{ form.enddate.label }} {{ form.enddate(class='datepicker') }}</span>
+        <span style="margin-left:2%">{{ form.chronological.label }} {{ form.chronological }}</span>
+        <span style="margin-left:2%">{{ form.submit() }}</span>
+    </form>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+            {% set count = namespace(value=1) %}
+            {% for tweet in tweets %}
+            {% if count.value % 2 == 0%}
+            <div class="card mt-1">
+                <div class="card-body" style="background-color:#F0F0F0">
+                    <h5 class="card-title">{{ tweet.tweet }}</h5>
+                    <p class="card-text">{{ tweet.created_at }}</p>
+                </div>
+            </div>
+            {%else%}
+            <div class="card mt-1">
+                <div class="card-body" style="background-color:#E8E8E8">
+                    <h5 class="card-title">{{ tweet.tweet }}</h5>
+                    <p class="card-text">{{ tweet.created_at }}</p>
+                </div>
+            </div>
+            {% endif %}
+            {% set count.value = count.value + 1 %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

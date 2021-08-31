@@ -1,0 +1,18 @@
+version: "2"
+services:
+  app:
+    build: .
+    links:
+      - db
+    ports:
+      - "5000:5000"
+
+  db:
+    image: mysql:5.7
+    ports:
+      - "32000:3306"
+    environment:
+      MYSQL_DATABASE: 'twitter'
+      MYSQL_ROOT_PASSWORD: 'admin'
+    volumes:
+        - ./db/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
