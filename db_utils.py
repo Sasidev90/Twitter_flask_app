@@ -48,7 +48,7 @@ def write_tweets_to_db(tweets, username):
     try:
         trace.info("Initialised to write_tweets_to_db in database...")
         user_id = get_column_for_row("id", "users", "username", username)
-        query = text("INSERT INTO tweets (tweet_id, tweet_text, created_at, twitter_user)"
+        query = text("INSERT IGNORE INTO tweets (tweet_id, tweet_text, created_at, twitter_user)"
                      " VALUES (:id, :tweet, :created_at, :twitter_user)")
         with engine.connect() as connection:
             for tweet in tweets:
